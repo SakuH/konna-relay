@@ -24,17 +24,23 @@ dbcursor = cnx.cursor()
 
 #dbcursor.execute("SHOW TABLES")
 #for x in dbcursor:
- #   print(x)
+#   print(x)
 
 
 while 1:
     x=ser.readline()
+#    ser.flushInput()
+    print x
+#    x = "25.2 120.2 66.6 17.9"
+    konnanarvot = x.split(", ")
+    
     print x
 #    sql = "INSERT INTO sensori_data (lampotila, gyro) VALUES (%s, %s)"
-    sql = "UPDATE sensori_data SET lampotila = %s WHERE data_id = %s"
+    sql = "UPDATE sensori_data SET lampotila = %s, kulma_x = %s, kulma_y = %s WHERE data_id = %s"
 #    val = (x, "900.0")
-    val = (x, "1")
+    val = (konnanarvot[0], konnanarvot[1], konnanarvot[2], "1")
     dbcursor.execute(sql, val)
     cnx.commit()
     print(dbcursor.rowcount, "record inserted.")
+#    time.sleep(0.2)
     
